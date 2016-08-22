@@ -34603,114 +34603,131 @@
 	//   `["trace", "vmTrace", "stateDiff"]
 	//  )
 
-
+	/*
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'traceCall',
-			call: 'trace_call',
-			params: 2,
-			inputFormatter: [web3._extend.formatters.inputCallFormatter, null]
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'traceCall',
+				call: 'trace_call',
+				params: 2,
+				inputFormatter: [web3._extend.formatters.inputCallFormatter, null]
+			})
+		]
 	});
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'traceSendRawTransaction',
-			call: 'trace_sendRawTransaction',
-			params: 2,
-			inputFormatter: [null, null]
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'traceSendRawTransaction',
+				call: 'trace_sendRawTransaction',
+				params: 2,
+				inputFormatter: [null, null]
+			})
+		]
 	});
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'gasPriceStatistics',
-			call: 'ethcore_gasPriceStatistics',
-			params: 0,
-			outputFormatter: function outputFormatter(a) {
-				return a.map(web3.toBigNumber);
-			}
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'gasPriceStatistics',
+				call: 'ethcore_gasPriceStatistics',
+				params: 0,
+				outputFormatter: function(a) { return a.map(web3.toBigNumber); }
+			})
+		]
 	});
+
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'accountsInfo',
-			call: 'personal_accountsInfo',
-			outputFormatter: function outputFormatter(m) {
-				Object.keys(m).forEach(function (k) {
+		methods: [
+			new web3._extend.Method({
+				name: 'accountsInfo',
+				call: 'personal_accountsInfo',
+				outputFormatter: function(m) { Object.keys(m).forEach(k => {
 					m[k].meta = JSON.parse(m[k].meta);
 					m[k].meta.name = m[k].name;
 					m[k].meta.uuid = m[k].uuid;
 					m[k] = m[k].meta;
-				});return m;
-			},
-			params: 0
-		})]
+				}); return m; },
+				params: 0
+			})
+		]
 	});
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'setAccountName',
-			call: 'personal_setAccountName',
-			params: 2
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'setAccountName',
+				call: 'personal_setAccountName',
+				params: 2,
+			})
+		]
 	});
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'setAccountMeta',
-			call: 'personal_setAccountMeta',
-			params: 2,
-			inputFormatter: [function (a) {
-				return a;
-			}, JSON.stringify]
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'setAccountMeta',
+				call: 'personal_setAccountMeta',
+				params: 2,
+				inputFormatter: [a => a, JSON.stringify]
+			})
+		]
 	});
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'postTransaction',
-			call: 'eth_postTransaction',
-			params: 1,
-			inputFormatter: [web3._extend.formatters.inputCallFormatter]
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'postTransaction',
+				call: 'eth_postTransaction',
+				params: 1,
+				inputFormatter: [web3._extend.formatters.inputCallFormatter]
+			})
+		]
 	});
 
 	web3._extend({
 		property: 'eth',
-		methods: [new web3._extend.Method({
-			name: 'checkTransaction',
-			call: 'eth_checkTransaction',
-			params: 1
-		})]
+		methods: [
+			new web3._extend.Method({
+				name: 'checkTransaction',
+				call: 'eth_checkTransaction',
+				params: 1
+			})
+		]
 	});
+
 
 	{
 		var postTransaction = web3.eth.postTransaction.bind(web3.eth);
 		var sendTransaction = web3.eth.sendTransaction.bind(web3.eth);
-		web3.eth.sendTransaction = function (options, f) {
+		web3.eth.sendTransaction = function(options, f) {
 			// No callback - do sync API.
-			if (typeof f != "function") return sendTransaction(options);
+			if (typeof f != "function")
+				return sendTransaction(options);
 			// Callback - use async API.
 			var id = postTransaction(options);
 			var timer_id = window.setInterval(check, 500);
 			function check() {
-				var r = web3.eth.checkTransaction(id);
+				let r = web3.eth.checkTransaction(id);
 				if (typeof r == 'string') {
 					clearInterval(timer_id);
-					if (r == "0x0000000000000000000000000000000000000000000000000000000000000000") f("Rejected", r);else f(null, r);
+					if (r == "0x0000000000000000000000000000000000000000000000000000000000000000")
+						f("Rejected", r);
+					else
+						f(null, r);
 				}
 			}
-		};
+		}
 	}
+	*/
 
 	web3.eth.installInterceptor = function (interceptor) {
 		var oldSendTransaction = web3.eth.sendTransaction.bind(web3.eth);
